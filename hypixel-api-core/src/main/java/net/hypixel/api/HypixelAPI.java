@@ -15,10 +15,10 @@ import net.hypixel.api.http.HypixelHttpResponse;
 import net.hypixel.api.reply.*;
 import net.hypixel.api.reply.skyblock.*;
 import net.hypixel.api.util.ResourceType;
+import reactor.core.publisher.Mono;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 public class HypixelAPI {
 
@@ -47,23 +47,23 @@ public class HypixelAPI {
         httpClient.shutdown();
     }
 
-    public CompletableFuture<BoostersReply> getBoosters() {
+    public Mono<BoostersReply> getBoosters() {
         return get(BoostersReply.class, "boosters");
     }
 
-    public CompletableFuture<LeaderboardsReply> getLeaderboards() {
+    public Mono<LeaderboardsReply> getLeaderboards() {
         return get(LeaderboardsReply.class, "leaderboards");
     }
 
-    public CompletableFuture<PunishmentStatsReply> getPunishmentStats() {
+    public Mono<PunishmentStatsReply> getPunishmentStats() {
         return get(PunishmentStatsReply.class, "punishmentstats");
     }
 
     /**
      * @param player uuid of a player
-     * @return {@link CompletableFuture} containing {@link PlayerReply}
+     * @return {@link Mono} containing {@link PlayerReply}
      */
-    public CompletableFuture<PlayerReply> getPlayerByUuid(UUID player) {
+    public Mono<PlayerReply> getPlayerByUuid(UUID player) {
         return get(PlayerReply.class, "player",
                 HTTPQueryParams.create()
                         .add("uuid", player)
@@ -72,9 +72,9 @@ public class HypixelAPI {
 
     /**
      * @param player uuid of a player in string format, can be both dashed or undashed.
-     * @return {@link CompletableFuture} containing {@link PlayerReply}
+     * @return {@link Mono} containing {@link PlayerReply}
      */
-    public CompletableFuture<PlayerReply> getPlayerByUuid(String player) {
+    public Mono<PlayerReply> getPlayerByUuid(String player) {
         return get(PlayerReply.class, "player",
                 HTTPQueryParams.create()
                         .add("uuid", player)
@@ -83,20 +83,20 @@ public class HypixelAPI {
 
     /**
      * @param player the minecraft username of the player.
-     * @return {@link CompletableFuture} containing {@link PlayerReply}
+     * @return {@link Mono} containing {@link PlayerReply}
      * @deprecated While this method should continue functioning we recommend using the Mojang API for requesting UUID's by username.
      * See issue <a href="https://github.com/HypixelDev/PublicAPI/issues/249#issuecomment-645634722">#249</a>
      * This endpoint is also subject to limiting requests of the same username in a short period of time.
      */
     @Deprecated
-    public CompletableFuture<PlayerReply> getPlayerByName(String player) {
+    public Mono<PlayerReply> getPlayerByName(String player) {
         return get(PlayerReply.class, "player",
                 HTTPQueryParams.create()
                         .add("name", player)
         );
     }
 
-    public CompletableFuture<FriendsReply> getFriends(UUID player) {
+    public Mono<FriendsReply> getFriends(UUID player) {
         return get(FriendsReply.class, "friends",
                 HTTPQueryParams.create()
                         .add("uuid", player)
@@ -105,9 +105,9 @@ public class HypixelAPI {
 
     /**
      * @param player uuid of a player in string format, can be both dashed or undashed
-     * @return {@link CompletableFuture} containing {@link FriendsReply}
+     * @return {@link Mono} containing {@link FriendsReply}
      */
-    public CompletableFuture<FriendsReply> getFriends(String player) {
+    public Mono<FriendsReply> getFriends(String player) {
         return get(FriendsReply.class, "friends",
                 HTTPQueryParams.create()
                         .add("uuid", player)
@@ -116,9 +116,9 @@ public class HypixelAPI {
 
     /**
      * @param player uuid of a player
-     * @return {@link CompletableFuture} containing {@link GuildReply}
+     * @return {@link Mono} containing {@link GuildReply}
      */
-    public CompletableFuture<GuildReply> getGuildByPlayer(UUID player) {
+    public Mono<GuildReply> getGuildByPlayer(UUID player) {
         return get(GuildReply.class, "guild",
                 HTTPQueryParams.create()
                         .add("player", player)
@@ -127,9 +127,9 @@ public class HypixelAPI {
 
     /**
      * @param player uuid of a player in string format, can be both dashed or undashed
-     * @return {@link CompletableFuture} containing {@link GuildReply}
+     * @return {@link Mono} containing {@link GuildReply}
      */
-    public CompletableFuture<GuildReply> getGuildByPlayer(String player) {
+    public Mono<GuildReply> getGuildByPlayer(String player) {
         return get(GuildReply.class, "guild",
                 HTTPQueryParams.create()
                         .add("player", player)
@@ -138,9 +138,9 @@ public class HypixelAPI {
 
     /**
      * @param name the name of the guild
-     * @return {@link CompletableFuture} containing {@link GuildReply}
+     * @return {@link Mono} containing {@link GuildReply}
      */
-    public CompletableFuture<GuildReply> getGuildByName(String name) {
+    public Mono<GuildReply> getGuildByName(String name) {
         return get(GuildReply.class, "guild",
                 HTTPQueryParams.create()
                         .add("name", name)
@@ -149,20 +149,20 @@ public class HypixelAPI {
 
     /**
      * @param id mongo id hex string
-     * @return {@link CompletableFuture} containing {@link GuildReply}
+     * @return {@link Mono} containing {@link GuildReply}
      */
-    public CompletableFuture<GuildReply> getGuildById(String id) {
+    public Mono<GuildReply> getGuildById(String id) {
         return get(GuildReply.class, "guild",
                 HTTPQueryParams.create()
                         .add("id", id)
         );
     }
 
-    public CompletableFuture<KeyReply> getKey() {
+    public Mono<KeyReply> getKey() {
         return get(KeyReply.class, "key");
     }
 
-    public CompletableFuture<CountsReply> getCounts() {
+    public Mono<CountsReply> getCounts() {
         return get(CountsReply.class, "counts");
     }
 
@@ -172,9 +172,9 @@ public class HypixelAPI {
      * In case the person is in limbo, result will be the last known server
      *
      * @param uuid of player
-     * @return {@link CompletableFuture} containing {@link StatusReply}
+     * @return {@link Mono} containing {@link StatusReply}
      */
-    public CompletableFuture<StatusReply> getStatus(UUID uuid) {
+    public Mono<StatusReply> getStatus(UUID uuid) {
         return get(StatusReply.class, "status",
                 HTTPQueryParams.create()
                         .add("uuid", uuid)
@@ -185,9 +185,9 @@ public class HypixelAPI {
      * Gets up to 100 of the player's most recently played games. Games are removed from this list after 3 days.
      *
      * @param uuid of player
-     * @return {@link CompletableFuture} containing {@link RecentGamesReply}
+     * @return {@link Mono} containing {@link RecentGamesReply}
      */
-    public CompletableFuture<RecentGamesReply> getRecentGames(UUID uuid) {
+    public Mono<RecentGamesReply> getRecentGames(UUID uuid) {
         return get(RecentGamesReply.class, "recentGames",
                 HTTPQueryParams.create()
                         .add("uuid", uuid)
@@ -198,28 +198,28 @@ public class HypixelAPI {
      * Retrieve resources which don't change often.
      *
      * @param resource to be requested
-     * @return {@link CompletableFuture} containing {@link ResourceReply}
+     * @return {@link Mono} containing {@link ResourceReply}
      */
-    public CompletableFuture<ResourceReply> getResource(ResourceType resource) {
+    public Mono<ResourceReply> getResource(ResourceType resource) {
         return getResource(resource.getPath());
     }
 
-    public CompletableFuture<ResourceReply> getResource(String resource) {
+    public Mono<ResourceReply> getResource(String resource) {
         return requestResource(resource);
     }
 
-    public CompletableFuture<SkyBlockProfileReply> getSkyBlockProfile(String profile) {
+    public Mono<SkyBlockProfileReply> getSkyBlockProfile(String profile) {
         return get(SkyBlockProfileReply.class, "skyblock/profile",
                 HTTPQueryParams.create()
                         .add("profile", profile)
         );
     }
 
-    public CompletableFuture<SkyBlockNewsReply> getSkyBlockNews() {
+    public Mono<SkyBlockNewsReply> getSkyBlockNews() {
         return get(SkyBlockNewsReply.class, "skyblock/news");
     }
 
-    public CompletableFuture<SkyBlockAuctionsReply> getSkyBlockAuctions(int page) {
+    public Mono<SkyBlockAuctionsReply> getSkyBlockAuctions(int page) {
         return get(SkyBlockAuctionsReply.class, "skyblock/auctions",
                 HTTPQueryParams.create()
                         .add("page", page)
@@ -229,24 +229,24 @@ public class HypixelAPI {
     /**
      * Requests information about products in bazaar.
      *
-     * @return {@link CompletableFuture} containing {@link SkyBlockBazaarReply}
+     * @return {@link Mono} containing {@link SkyBlockBazaarReply}
      */
-    public CompletableFuture<SkyBlockBazaarReply> getSkyBlockBazaar() {
+    public Mono<SkyBlockBazaarReply> getSkyBlockBazaar() {
         return get(SkyBlockBazaarReply.class, "skyblock/bazaar");
     }
 
-    private <R extends AbstractReply> CompletableFuture<R> get(Class<R> clazz, String request) {
+    private <R extends AbstractReply> Mono<R> get(Class<R> clazz, String request) {
         return get(clazz, request, null);
     }
 
-    private <R extends AbstractReply> CompletableFuture<R> get(Class<R> clazz, String request, HTTPQueryParams params) {
+    private <R extends AbstractReply> Mono<R> get(Class<R> clazz, String request, HTTPQueryParams params) {
         String url = BASE_URL + request;
         if (params != null) {
             url = params.getAsQueryString(url);
         }
         return httpClient.makeAuthenticatedRequest(url)
-                .thenApply(this::checkResponse)
-                .thenApply(response -> {
+                .map(this::checkResponse)
+                .map(response -> {
                     if (clazz == ResourceReply.class) {
                         return checkReply((R) new ResourceReply(GSON.fromJson(response.getBody(), JsonObject.class)));
                     }
@@ -254,10 +254,10 @@ public class HypixelAPI {
                 });
     }
 
-    private CompletableFuture<ResourceReply> requestResource(String resource) {
+    private Mono<ResourceReply> requestResource(String resource) {
         return httpClient.makeRequest(BASE_URL + "resources/" + resource)
-                .thenApply(this::checkResponse)
-                .thenApply(response -> checkReply(new ResourceReply(GSON.fromJson(response.getBody(), JsonObject.class))));
+                .map(this::checkResponse)
+                .map(response -> checkReply(new ResourceReply(GSON.fromJson(response.getBody(), JsonObject.class))));
     }
 
     /**

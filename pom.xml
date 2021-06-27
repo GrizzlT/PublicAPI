@@ -12,8 +12,6 @@
     <modules>
         <module>hypixel-api-core</module>
         <module>hypixel-api-example</module>
-        <module>hypixel-api-transport-apache</module>
-        <module>hypixel-api-transport-unirest</module>
         <module>hypixel-api-transport-reactor</module>
     </modules>
 

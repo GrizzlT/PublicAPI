@@ -4,7 +4,7 @@ import net.hypixel.api.example.ExampleUtil;
 
 public class GetBazaarExample {
     public static void main(String[] args) {
-        ExampleUtil.API.getSkyBlockBazaar().whenComplete(ExampleUtil.getTestConsumer());
+        ExampleUtil.API.getSkyBlockBazaar().subscribe(ExampleUtil.getTestConsumer());
         ExampleUtil.await();
     }
 }
